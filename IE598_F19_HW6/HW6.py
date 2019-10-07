@@ -25,12 +25,16 @@ m=[24]
 y=df[m].values
 acc=[]
 X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.1, random_state=42)
+
 #part 1
+time_start=time.time()
 for i in range(1,11):
   tree = DecisionTreeClassifier(max_depth=6, random_state=i)
   tree.fit(X_train, y_train)
   y_pred=tree.predict(X_test)
   acc.append(accuracy_score(y_test, y_pred))
+time_end=time.time()
+print('Decision tree totally costs ',time_end-time_start,'s')
 print(acc)
 
 print("The mean of the scores is:",np.mean(acc))
@@ -43,6 +47,7 @@ cv_scores=[]
 cv_mean=[]
 cv_var=[]
 cv_std=[]
+time_start=time.time()
 for i in range(1,11):
   tree = DecisionTreeClassifier(max_depth=6, random_state=i)
   a=cross_val_score(tree,X,y,cv=10)
@@ -50,6 +55,8 @@ for i in range(1,11):
   cv_mean.append(np.mean(a))
   cv_var.append(np.var(a))
   cv_std.append(np.std(a,ddof=1))
+time_end=time.time()
+print('Cross validation totally costs ',time_end-time_start,'s')
 
 print(cv_scores)
 
