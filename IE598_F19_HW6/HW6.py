@@ -42,19 +42,22 @@ from sklearn.model_selection import cross_val_score
 cv_scores=[]
 cv_mean=[]
 cv_var=[]
+cv_std=[]
 for i in range(1,11):
   tree = DecisionTreeClassifier(max_depth=6, random_state=i)
   a=cross_val_score(tree,X,y,cv=10)
   cv_scores.append(a)
   cv_mean.append(np.mean(a))
   cv_var.append(np.var(a))
+  cv_std.append(np.std(a,ddof=1))
 
 print(cv_scores)
 
 print("The mean of the  CV scores is:",cv_mean)
-print("The variance of the CV scores is:",cv_var)
+print("The standard deviation of the CV scores is:",cv_std)
 
-
+print(np.mean(cv_mean))
+print(np.std(cv_scores))
 
 
 
